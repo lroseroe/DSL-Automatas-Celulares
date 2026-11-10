@@ -1,0 +1,7 @@
+automata Life {
+    estados : dead, alive
+    vecindad : moore(1)
+    regla: viva y cant(viva) < 2 -> muerta
+    regla: viva y cant(viva) > 3 -> muerta
+    regla: muerta y cant(viva) == 3 -> viva
+}

@@ -1,0 +1,18 @@
+#Definimos la gramatica básica
+start : "automata" NOMBRE "{" estados vecindad regla+ "}"
+
+estados:  "estados" ":" NOMBRE ("," NOMBRE)* #Uno o más estados
+vecindad: "vecindad" ":" TIPO "(" INT ")"    #INT es el radio de la vecindad
+regla:    "regla" ":" NOMBRE ("y" comparacion)? "->" NOMBRE # ? : opcional
+comparacion: "cant" "(" NOMBRE ")" OP INT 
+
+TIPO : "moore" | "neumann"
+OP: "<=" | ">=" | "==" | "!=" | "<" | ">"
+NOMBRE: /[^\W\d]\w*/ # [^\W\d] que no empiece por numero o simbolo, \w : letras, numeros y _
+
+%import common.INT
+%import common.WS
+%ignore WS # Ignorar espacios en blanco
+
+# moore(1) considera todos los 8 vecinos de la casilla (en una grilla)
+# neumann(1) considera los 4 vecinos (arriba, abajo, izq, der) de la casilla
